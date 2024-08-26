@@ -112,7 +112,7 @@ export default function ProductCard({
                 </button>
                 <Input
                     type="text"
-                    value={currentStock === 0 ? "No disponible" : quantity.toString()}
+                    value={currentStock === 0 ? "0" : quantity.toString()}
                     className={`w-12 text-center mx-2 appearance-none ${currentStock === 0 ? "text-red-500" : ""}`}
                     readOnly
                 />
