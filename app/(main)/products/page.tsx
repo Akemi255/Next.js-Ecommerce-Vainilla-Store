@@ -1,7 +1,7 @@
 import prismadb from "@/lib/prismadb";
 import ProductSection from "./_components/product-section";
 
-export default async function ProductsPage({ searchParams }: { searchParams: { category?: string } }) {
+export default async function ProductsPage() {
 
     const products = await prismadb.product.findMany({
         orderBy: {
