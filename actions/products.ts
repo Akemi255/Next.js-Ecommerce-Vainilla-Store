@@ -11,6 +11,7 @@ export const getProducts = async (ids: string[]) => {
         },
       },
       include: {
+        category: true,
         images: true,
       },
     });

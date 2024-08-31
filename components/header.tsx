@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Search, User, ShoppingBag, Home } from 'lucide-react'
+import prismadb from '@/lib/prismadb'
+import { User } from 'lucide-react'
 
 import Logo from './logo'
 import RetailShopDropdown from './retail-shop-dropdown'
@@ -9,7 +10,14 @@ import { MobileMenu } from './mobile-menu'
 import SearchModal from './search-modal'
 import CartIcon from './cart-icon'
 
-export default function Header() {
+export default async function Header() {
+
+    const categories = await prismadb.category.findMany({
+        orderBy: {
+            createdAt: "desc",
+        },
+    })
+
     return (
         <header className="border-b border-gray-200">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,10 +25,8 @@ export default function Header() {
                     <MobileMenu />
                     <Logo />
                     <nav className="hidden md:flex space-x-8">
-
-
                         <div className="relative group">
-                            <RetailShopDropdown />
+                            <RetailShopDropdown categories={categories} />
                         </div>
 
                         <div className="relative group">

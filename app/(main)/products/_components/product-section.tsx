@@ -1,13 +1,14 @@
 "use client"
 import React, { useState } from 'react';
 import ProductCard from './product-card';
-import { Image, Product } from '@prisma/client';
+import { Category, Image, Product } from '@prisma/client';
 
 interface ProductSectionProps {
     products: ProductWithImages[];
 }
 
 interface ProductWithImages extends Product {
+    category: Category
     images: Image[];
 }
 
@@ -64,7 +65,7 @@ export default function ProductSection({ products }: ProductSectionProps) {
             </div>
 
             {filteredProducts.length === 0 ? (
-                <p className="text-center text-black">No products available</p>
+                <h2 className="flex justify-center mt-4 mb-4">No products available</h2>
             ) : (
                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {filteredProducts.map((product) => (
@@ -76,7 +77,7 @@ export default function ProductSection({ products }: ProductSectionProps) {
                             images={product.images}
                             price={product.price}
                             stock={product.stock}
-                            category={product.Category}
+                            category={product.category.name}
                         />
                     ))}
                 </div>

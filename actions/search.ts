@@ -26,6 +26,7 @@ export const searchProducts = async (query: string) => {
       createdAt: "desc",
     },
     include: {
+      category: true,
       images: true,
     },
   });

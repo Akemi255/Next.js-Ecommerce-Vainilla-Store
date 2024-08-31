@@ -1,10 +1,15 @@
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import { Category } from '@prisma/client';
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
-export default function RetailShopDropdown() {
+interface RetailShopDropdownProps {
+    categories: Category[];
+}
+
+export default function RetailShopDropdown({ categories }: RetailShopDropdownProps) {
     return (
         <Popover>
             <PopoverTrigger asChild className='border-none'>
@@ -21,21 +26,15 @@ export default function RetailShopDropdown() {
                     <Link href="/products" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
                         Todos los productos
                     </Link>
-                    <Link href="/products/vanilla" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Vanilla
-                    </Link>
-                    <Link href="/products/coffe" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Coffe
-                    </Link>
-                    <Link href="/products/cocoa" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Cocoa
-                    </Link>
-                    <Link href="/products/panama-huts" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Panamá huts
-                    </Link>
-                    <Link href="/products/tagua" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Tagua
-                    </Link>
+                    {categories.map((category) => (
+                        <Link
+                            key={category.id}
+                            href={`/products/${category.name.replace(/\s+/g, '-')}`}
+                            className="hover:bg-gray-100 p-2 rounded cursor-pointer block"
+                        >
+                            {category.name}
+                        </Link>
+                    ))}
                 </div>
             </PopoverContent>
         </Popover>

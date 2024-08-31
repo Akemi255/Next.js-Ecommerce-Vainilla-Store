@@ -48,11 +48,9 @@ const useCart = create(
       },
       removeItem: (id: string) => {
         set({ items: get().items.filter((item) => item.id !== id) });
-        toast.success("Item removed from cart.");
       },
       removeAll: () => set({ items: [] }),
 
-      // totalItems as a function to calculate the total quantity dynamically
       totalItems: () =>
         get().items.reduce((total, item) => total + item.quantity, 0),
     }),

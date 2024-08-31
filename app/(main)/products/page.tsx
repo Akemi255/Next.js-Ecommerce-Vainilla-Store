@@ -8,6 +8,7 @@ export default async function ProductsPage() {
             createdAt: "desc",
         },
         include: {
+            category: true,
             images: true,
         },
     });

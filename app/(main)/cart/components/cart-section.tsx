@@ -6,21 +6,19 @@ import CartCard from './cart-card';
 import { getProducts } from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import useCart from '@/hooks/store';
+import { Product } from '@prisma/client';
+
+import { Category, Image } from '@prisma/client';
+interface ProductWithDetails extends Product {
+    images: Image[];
+    category: Category;
+}
 
 interface CartItem {
     id: string;
     quantity: number;
 }
 
-interface Product {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    stock: number;
-    Category: string;
-    images: { url: string }[];
-}
 
 const fetchProducts = async (ids: string[]) => {
     if (ids.length === 0) {
@@ -80,7 +78,7 @@ export default function CartSection() {
     }
 
     // Ensure products is an array
-    const productList: Product[] = products || [];
+    const productList: ProductWithDetails[] = products || [];
 
     // Calculate total price
     const totalPrice = productList.reduce((total, product) => {
@@ -120,7 +118,7 @@ export default function CartSection() {
                     </div>
                     <h1 className="text-2xl font-bold mb-4 text-center mt-7">Your cart</h1>
                     <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                        {productList.map((product: Product) => {
+                        {productList.map((product: ProductWithDetails) => {
                             const cartItem = cartItems.find(item => item.id === product.id);
                             const quantity = cartItem ? cartItem.quantity : 0;
 
@@ -133,7 +131,7 @@ export default function CartSection() {
                                     images={product.images}
                                     price={product.price}
                                     stock={product.stock}
-                                    category={product.Category}
+                                    category={product.category.name}
                                     quantity={quantity}
                                 />
                             );

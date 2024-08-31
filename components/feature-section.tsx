@@ -1,5 +1,5 @@
 "use client"
-import { Image, Product } from '@prisma/client';
+import { Category, Image, Product } from '@prisma/client';
 import ProductCard from '@/app/(main)/products/_components/product-card';
 
 interface ProductSectionProps {
@@ -8,6 +8,7 @@ interface ProductSectionProps {
 
 interface ProductWithImages extends Product {
     images: Image[];
+    category: Category
 }
 
 export default function FeatureSection({ products }: ProductSectionProps) {
@@ -29,7 +30,7 @@ export default function FeatureSection({ products }: ProductSectionProps) {
                                 images={product.images}
                                 price={product.price}
                                 stock={product.stock}
-                                category={product.Category}
+                                category={product.category.name}
                             />
                         ))}
                     </div>

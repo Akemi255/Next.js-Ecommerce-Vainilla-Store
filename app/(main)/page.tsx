@@ -14,6 +14,7 @@ export default async function Home() {
       createdAt: "desc",
     },
     include: {
+      category: true,
       images: true,
     },
   });
