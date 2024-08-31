@@ -14,9 +14,12 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import Logo from "./logo";
+import { Category } from "@prisma/client";
+interface MobileMenuProps {
+    categories: Category[];
+}
 
-
-export function MobileMenu() {
+export function MobileMenu({ categories }: MobileMenuProps) {
     const [activeMenu, setActiveMenu] = useState(null);
 
     const handleMenuClick = (menu: any) => {
@@ -46,11 +49,15 @@ export function MobileMenu() {
                             {activeMenu === 'shop' && (
                                 <ul className="ml-4 mt-2 space-y-2">
                                     <li><Link href="/products">Todos los productos</Link></li>
-                                    <li><Link href="/products?category=Vainilla">Vainilla</Link></li>
-                                    <li><Link href="/products?category=Cafe">Café</Link></li>
-                                    <li><Link href="/products?category=cacao">Cacao</Link></li>
-                                    <li><Link href="/products?category=Panama_huts">Panamá huts</Link></li>
-                                    <li><Link href="/products?category=tagua">Tagua</Link></li>
+                                    {categories.map((category) => (
+                                        <Link
+                                            key={category.id}
+                                            href={`/products/${category.name.replace(/\s+/g, '-')}`}
+                                            className="rounded cursor-pointer block"
+                                        >
+                                            {category.name}
+                                        </Link>
+                                    ))}
                                 </ul>
                             )}
                         </li>
@@ -61,10 +68,10 @@ export function MobileMenu() {
                             </div>
                             {activeMenu === 'resources' && (
                                 <ul className="ml-4 mt-2 space-y-2">
-                                    <li><Link href="/products/all">Make Vanilla Extract</Link></li>
-                                    <li><Link href="/products/vanilla">Vanilla Glossary</Link></li>
-                                    <li><Link href="/products/coffee">Vanilla Beans Basics</Link></li>
-                                    <li><Link href="/products/all">Advanced topics</Link></li>
+                                    <li><Link href="/learning/make-vanilla-extract">Make Vanilla Extract</Link></li>
+                                    <li><Link href="/learning/vanilla-glosary">Vanilla Glossary</Link></li>
+                                    <li><Link href="/learning/vanilla-bean-basics">Vanilla Beans Basics</Link></li>
+                                    <li><Link href="/learning/advanced-topics">Advanced topics</Link></li>
                                 </ul>
                             )}
                         </li>
@@ -75,9 +82,9 @@ export function MobileMenu() {
                             </div>
                             {activeMenu === 'about' && (
                                 <ul className="ml-4 mt-2 space-y-2">
-                                    <li><a href="/about/company">Company</a></li>
-                                    <li><a href="/about/team">Team</a></li>
-                                    <li><a href="/about/contact">Contact</a></li>
+                                    <li><Link href="/about-us">About-us</Link></li>
+                                    <li><Link href="/our-story">Our Story</Link></li>
+                                    <li><Link href="/contact-us">Contact</Link></li>
                                 </ul>
                             )}
                         </li>
