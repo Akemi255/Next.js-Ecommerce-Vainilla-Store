@@ -1,13 +1,10 @@
-import CheckoutFalse from "./components/checkout-false";
-import CheckoutTrue from "./components/checkout-true";
 
-export default function PaymentPage({ searchParams }: { searchParams: { success: boolean } }) {
+import CheckoutProvider from "@/providers/checkout-provider";
 
-    if (searchParams.success) {
-        <CheckoutTrue />
-    }
-
+export default function PaymentPage({ searchParams }: { searchParams: { success: string } }) {
     return (
-        <CheckoutFalse />
+        <div className="flex justify-center items-center">
+            <CheckoutProvider searchParams={searchParams} />
+        </div>
     );
 }
