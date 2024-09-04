@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import axios from 'axios';
 
 import CartCard from './cart-card';
 import { getProducts } from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import useCart from '@/hooks/store';
-import { Product } from '@prisma/client';
 
+import { Product } from '@prisma/client';
 import { Category, Image } from '@prisma/client';
 interface ProductWithDetails extends Product {
     images: Image[];
@@ -89,10 +90,24 @@ export default function CartSection() {
         return total;
     }, 0);
 
-    const handleCheckout = () => {
-        // Implement checkout logic here
-        alert('Implementando funcionalidad de compra con stripe');
+    const onCheckout = async () => {
+        try {
+            const response = await axios.post(`/api/checkout`, {
+                products: productList.map((product) => {
+                    const cartItem = cartItems.find(item => item.id === product.id);
+                    return {
+                        id: product.id,
+                        quantity: cartItem ? cartItem.quantity : 0,
+                    };
+                }),
+            });
+            window.location = response.data.url;
+        } catch (error) {
+            console.log(error);
+        }
     };
+
+
 
     const handleCleanCart = () => {
         setCartItems([]);
@@ -112,7 +127,7 @@ export default function CartSection() {
                             <span className="font-semibold text-lg">${totalPrice.toFixed(2)}</span>
                         </div>
                         <div className="flex gap-2">
-                            <Button onClick={handleCheckout}>Checkout</Button>
+                            <Button onClick={onCheckout}>Checkout</Button>
                             <Button onClick={handleCleanCart} variant={'destructive'}>Clean Cart</Button>
                         </div>
                     </div>
