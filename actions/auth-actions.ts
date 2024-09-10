@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import { signInSchema, signUpSchema } from "@/lib/zod";
 import { unknown, z } from "zod";
 import { isBefore } from "date-fns";
-import { deleteVerificationToken } from "@/utils/password";
+import { deleteVerificationToken } from "@/lib/password";
 import { sendVerificationEmail } from "./email-actions";
 
 const passwordSchema = z
