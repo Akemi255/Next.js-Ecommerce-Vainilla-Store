@@ -3,9 +3,12 @@ import { NextResponse } from "next/server";
 
 import { stripe } from "@/lib/stripe";
 import prismadb from "@/lib/prismadb";
+import { auth } from "@/auth";
 
 export async function POST(req: Request) {
   const { products } = await req.json();
+
+  const Session = await auth();
 
   if (!products || products.length === 0) {
     return new NextResponse("Product data is required", { status: 400 });
@@ -48,8 +51,15 @@ export async function POST(req: Request) {
     return new NextResponse("No valid line items found", { status: 400 });
   }
 
+  const user = await prismadb.user.findUnique({
+    where: {
+      id: Session?.user.id,
+    },
+  });
+
   const order = await prismadb.order.create({
     data: {
+      userId: user?.id,
       isPaid: false,
       orderItems: {
         create: products.map((product: { id: string; quantity: number }) => ({
