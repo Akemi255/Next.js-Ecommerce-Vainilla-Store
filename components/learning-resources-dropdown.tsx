@@ -3,8 +3,13 @@ import Link from 'next/link';
 
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Button } from './ui/button';
+import { LearningCategory } from '@prisma/client';
 
-export default function LearningResourcesDropdown() {
+interface LearningResourcesDropdownProps {
+    learningCategories: LearningCategory[]
+}
+
+export default function LearningResourcesDropdown({ learningCategories }: LearningResourcesDropdownProps) {
     return (
         <Popover>
             <PopoverTrigger asChild className='border-none'>
@@ -15,18 +20,15 @@ export default function LearningResourcesDropdown() {
             </PopoverTrigger>
             <PopoverContent className="w-48">
                 <div className="grid gap-2">
-                    <Link href="/learning/make-vanilla-extract" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Make Vanilla Extract
-                    </Link>
-                    <Link href="/learning/vanilla-glosary" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Vanilla Glossary
-                    </Link>
-                    <Link href="/learning/vanilla-bean-basics" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Vanilla Bean Basics
-                    </Link>
-                    <Link href="/learning/advanced-topics" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Advanced topics
-                    </Link>
+                    {learningCategories.map((category) => (
+                        <Link
+                            key={category.id}
+                            href={`/learning/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
+                            className="hover:bg-gray-100 p-2 rounded cursor-pointer block"
+                        >
+                            {category.name}
+                        </Link>
+                    ))}
                 </div>
             </PopoverContent>
         </Popover>

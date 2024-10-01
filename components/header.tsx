@@ -18,6 +18,12 @@ export default async function Header() {
         },
     })
 
+    const learningCategories = await prismadb.learningCategory.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
     return (
         <header className="border-b border-gray-200">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,7 +36,7 @@ export default async function Header() {
                         </div>
 
                         <div className="relative group">
-                            <LearningResourcesDropdown />
+                            <LearningResourcesDropdown learningCategories={learningCategories} />
                         </div>
                         <div className="relative group">
                             <AboutUsDropdown />
