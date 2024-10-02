@@ -1,3 +1,5 @@
+export const revalidate = 0
+
 import prismadb from "@/lib/prismadb";
 
 export default async function PoliciesPage() {
