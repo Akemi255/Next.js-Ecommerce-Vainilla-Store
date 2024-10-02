@@ -9,7 +9,7 @@ export default function Footer() {
 
                     <div className="flex flex-col space-y-2">
                         <h2 className="font-semibold text-lg mb-2">Quick links</h2>
-                        <Link href="/products/vanilla" className="text-sm hover:underline">Our Vanilla Beans</Link>
+                        <Link href="/products" className="text-sm hover:underline">Our Vanilla Beans</Link>
                         <Link href="/policies" className="text-sm hover:underline">Store Policies</Link>
                     </div>
 
@@ -17,8 +17,6 @@ export default function Footer() {
                     <div className="flex flex-col space-y-2">
                         <h2 className="font-semibold text-lg mb-2">About Us</h2>
                         <Link href="/our-story" className="text-sm hover:underline">Our Story</Link>
-                        <Link href="/our-team" className="text-sm hover:underline">Our Team</Link>
-                        <Link href="/favorite-cause" className="text-sm hover:underline">Our Favorite Causes</Link>
                         <Link href="/contact-us" className="text-sm hover:underline">Contact Us</Link>
                     </div>
                 </div>
