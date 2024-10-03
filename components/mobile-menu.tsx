@@ -6,7 +6,6 @@ import { Menu, ChevronRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Sheet,
-    SheetClose,
     SheetContent,
     SheetFooter,
     SheetHeader,
@@ -14,12 +13,13 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import Logo from "./logo";
-import { Category } from "@prisma/client";
+import { Category, LearningCategory } from "@prisma/client";
 interface MobileMenuProps {
     categories: Category[];
+    learningCategories: LearningCategory[]
 }
 
-export function MobileMenu({ categories }: MobileMenuProps) {
+export function MobileMenu({ categories, learningCategories }: MobileMenuProps) {
     const [activeMenu, setActiveMenu] = useState(null);
 
     const handleMenuClick = (menu: any) => {
@@ -48,7 +48,7 @@ export function MobileMenu({ categories }: MobileMenuProps) {
                             </div>
                             {activeMenu === 'shop' && (
                                 <ul className="ml-4 mt-2 space-y-2">
-                                    <li><Link href="/products">Todos los productos</Link></li>
+                                    <li><Link href="/products">All products</Link></li>
                                     {categories.map((category) => (
                                         <Link
                                             key={category.id}
@@ -68,10 +68,15 @@ export function MobileMenu({ categories }: MobileMenuProps) {
                             </div>
                             {activeMenu === 'resources' && (
                                 <ul className="ml-4 mt-2 space-y-2">
-                                    <li><Link href="/learning/make-vanilla-extract">Make Vanilla Extract</Link></li>
-                                    <li><Link href="/learning/vanilla-glosary">Vanilla Glossary</Link></li>
-                                    <li><Link href="/learning/vanilla-bean-basics">Vanilla Beans Basics</Link></li>
-                                    <li><Link href="/learning/advanced-topics">Advanced topics</Link></li>
+                                    {learningCategories.map((category) => (
+                                        <Link
+                                            key={category.id}
+                                            href={`/products/${category.name.replace(/\s+/g, '-')}`}
+                                            className="rounded cursor-pointer block"
+                                        >
+                                            {category.name}
+                                        </Link>
+                                    ))}
                                 </ul>
                             )}
                         </li>
