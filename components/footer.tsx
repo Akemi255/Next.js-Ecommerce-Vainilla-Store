@@ -9,7 +9,7 @@ export default function Footer() {
 
                     <div className="flex flex-col space-y-2">
                         <h2 className="font-semibold text-lg mb-2">Quick links</h2>
-                        <Link href="/products" className="text-sm hover:underline">Our Vanilla Beans</Link>
+                        <Link href="/products" className="text-sm hover:underline">Our Products</Link>
                         <Link href="/policies" className="text-sm hover:underline">Store Policies</Link>
                     </div>
 
