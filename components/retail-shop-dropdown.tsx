@@ -24,7 +24,7 @@ export default function RetailShopDropdown({ categories }: RetailShopDropdownPro
                         Home
                     </Link>
                     <Link href="/products" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Todos los productos
+                        All products
                     </Link>
                     {categories.map((category) => (
                         <Link
