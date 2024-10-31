@@ -9,9 +9,12 @@ export default async function LearningPage({ params }: { params: { name: string 
 
     const originalName = convertSlugToName(name);
 
-    const learningCategory = await prismadb.learningCategory.findUnique({
+    const learningCategory = await prismadb.learningCategory.findFirst({
         where: {
-            name: originalName,
+            name: {
+                equals: originalName.toLowerCase(),
+                mode: 'insensitive'
+            }
         },
         include: { images: true }
     });

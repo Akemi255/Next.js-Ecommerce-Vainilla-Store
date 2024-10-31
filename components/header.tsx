@@ -28,11 +28,11 @@ export default async function Header() {
 
     return (
         <header className="border-b border-gray-200">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto px-0 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <MobileMenu categories={categories} learningCategories={learningCategories} />
                     <Logo logo={logo} />
-                    <nav className="hidden md:flex space-x-8">
+                    <nav className="hidden md:flex space-x-3">
                         <div className="relative group">
                             <RetailShopDropdown categories={categories} />
                         </div>
@@ -45,13 +45,13 @@ export default async function Header() {
                         </div>
                     </nav>
                     <div className="flex items-center">
-                        <button className="p-2 text-gray-400 hover:text-gray-500">
+                        <button className="sm:p-2 text-gray-400 hover:text-gray-500">
                             <SearchModal />
                         </button>
-                        <Link className="p-2 text-gray-400 hover:text-gray-500" href="/profile">
+                        <Link className="p-4 sm:p-2 text-gray-400 hover:text-gray-500" href="/profile">
                             <User className="h-6 w-6" />
                         </Link>
-                        <Link href="/cart" className="p-2 text-gray-400 hover:text-gray-500">
+                        <Link href="/cart" className="sm:p-2 text-gray-400 hover:text-gray-500">
                             <CartIcon />
                         </Link>
                     </div>

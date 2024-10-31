@@ -71,7 +71,7 @@ export function MobileMenu({ categories, learningCategories }: MobileMenuProps) 
                                     {learningCategories.map((category) => (
                                         <Link
                                             key={category.id}
-                                            href={`/products/${category.name.replace(/\s+/g, '-')}`}
+                                            href={`/learning/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
                                             className="rounded cursor-pointer block"
                                         >
                                             {category.name}
