@@ -7,10 +7,15 @@ export default async function AboutUs() {
     const urls = initialData?.images.map((image) => image.url);
 
     const formatTextWithParagraphs = (text: string) => {
-        return text.split('<br />').map((line, index) => (
-            <p key={index} className="my-2">
-                {line}
-            </p>
+
+        const formattedText = text.replace(/(<br \/>)+/g, '<br />').trim();
+
+        return formattedText.split(/<br \/>+/).map((line, index) => (
+            line.trim() ? (
+                <p key={index} className="my-2">
+                    {line}
+                </p>
+            ) : <br key={index} />
         ));
     };
 
