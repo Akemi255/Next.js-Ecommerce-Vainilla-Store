@@ -1,3 +1,4 @@
+import { formatTextWithParagraphs } from "@/lib/format-text-with-paragraphs";
 import { LearningCategory, LearningImage } from "@prisma/client"
 import Image from "next/image";
 
@@ -11,18 +12,6 @@ export default function LearningCategorySection({ learningCategory }: LearningCa
 
     const urls = initialData?.images.map((image) => image.url);
 
-    const formatTextWithParagraphs = (text: string) => {
-
-        const formattedText = text.replace(/(<br \/>)+/g, '<br />').trim();
-
-        return formattedText.split(/<br \/>+/).map((line, index) => (
-            line.trim() ? (
-                <p key={index} className="my-2">
-                    {line}
-                </p>
-            ) : <br key={index} />
-        ));
-    };
 
     return (
         <div className="about-us-container mt-3 p-8 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
