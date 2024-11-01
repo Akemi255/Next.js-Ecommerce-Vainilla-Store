@@ -11,9 +11,17 @@ export default function LearningCategorySection({ learningCategory }: LearningCa
 
     const urls = initialData?.images.map((image) => image.url);
 
+    const formatTextWithParagraphs = (text: string) => {
+        return text.split('<br />').map((line, index) => (
+            <p key={index} className="my-2">
+                {line}
+            </p>
+        ));
+    };
+
     return (
         <div className="about-us-container mt-3 p-8 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
-            <h1 className="text-[20px]">{initialData?.text}</h1>
+            <h1 className="text-[20px]">{initialData?.text && formatTextWithParagraphs(initialData.text)}</h1>
             {urls && urls.length > 0 && (
                 <div className="mt-6">
                     <div className="grid grid-cols-2 gap-4">
