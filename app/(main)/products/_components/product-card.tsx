@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useCartStore from "@/hooks/store";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 interface Image {
@@ -28,6 +29,8 @@ export default function ProductCard({
     stock,
     category,
 }: ProductCardProps) {
+    const router = useRouter();
+
     const [quantity, setQuantity] = useState(1);
     const [currentStock, setCurrentStock] = useState(stock);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -99,7 +102,7 @@ export default function ProductCard({
             </div>
             <Badge className="w-1/4 flex justify-center relative top-2">{category}</Badge>
             <h2 className="text-lg font-semibold mt-4">{name}</h2>
-            <p className="font-semibold mt-4">{description}</p>
+
             <p className="text-gray-600 mt-2">${price.toFixed(2)} USD</p>
 
             <div className="flex items-center mt-4">
@@ -127,7 +130,9 @@ export default function ProductCard({
             <p className="text-gray-600 mt-2">
                 Stock restante: {currentStock} unidades
             </p>
-
+            <Button className="w-full mt-4" onClick={() => { router.push(`/product/${name.toLowerCase().replace(/\s+/g, '-')}`) }}>
+                Conocer más
+            </Button>
             <Button className="w-full mt-4" onClick={handleAddToCart} disabled={currentStock === 0}>
                 Añadir a la cesta
             </Button>

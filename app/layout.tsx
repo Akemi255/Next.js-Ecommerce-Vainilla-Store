@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google"
+import { Lora as FontSans } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
 import { ToasterProvider } from "@/providers/toast-provider";
+import localFont from 'next/font/local'
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const fontRaleway = localFont({
+  src: '../public/fonts/Raleway-SemiBold.ttf',
+  display: 'swap',
+  variable: "--font-raleway",
 })
 
 export const metadata: Metadata = {
@@ -21,15 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={fontRaleway.className}>
       <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        fontSans.variable
+        "min-h-screen bg-background antialiased",
       )}>
-
         <ToasterProvider />
         {children}
-
       </body>
     </html>
   );

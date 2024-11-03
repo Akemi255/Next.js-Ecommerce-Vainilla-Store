@@ -70,7 +70,6 @@ const CartCard: React.FC<CartCardProps> = ({
             )}
             <Badge className="w-1/3 flex justify-center relative top-1">{category}</Badge>
             <h2 className="text-md font-semibold mt-3">{name}</h2>
-            <p className="mt-1 text-sm">{description}</p>
             <p className="font-semibold mt-1">Price: ${price.toFixed(2)}</p>
             <div className="flex items-center mt-3">
                 <p>Cantidad</p>
