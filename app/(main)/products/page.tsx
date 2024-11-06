@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import ProductSection from "./_components/product-section";
+import CategoriesSection from "@/components/categories-card";
 
 export default async function ProductsPage() {
 
@@ -15,6 +16,7 @@ export default async function ProductsPage() {
 
     return (
         <>
+            <CategoriesSection />
             <ProductSection
                 products={products}
             />

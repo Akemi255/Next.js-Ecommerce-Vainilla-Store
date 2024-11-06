@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.text-shadow-white {
+  text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

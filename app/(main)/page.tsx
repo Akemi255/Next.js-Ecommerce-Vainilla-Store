@@ -2,6 +2,8 @@ import prismadb from "@/lib/prismadb";
 
 import { AspectRatioVainilla } from "@/components/aspect-vainilla";
 import FeatureSection from "@/components/feature-section";
+import CategoriesCard from "@/components/categories-card";
+import CategoriesSection from "@/components/categories-card";
 
 
 export default async function Home() {
@@ -22,6 +24,7 @@ export default async function Home() {
   return (
     <main className="">
       <AspectRatioVainilla />
+      <CategoriesSection />
       <FeatureSection products={products} />
     </main>
   );
