@@ -1,12 +1,20 @@
 import prismadb from "@/lib/prismadb";
 import ProductSection from "../_components/product-section";
 import { notFound } from "next/navigation";
+import { convertSlugToName } from '@/lib/convert-to-slug';
 
 export default async function CategoriesPage({ params }: { params: { category: string } }) {
 
-    const category = await prismadb.category.findFirst({
+    const { category } = params;
+
+    const originalName = convertSlugToName(category);
+
+    const data = await prismadb.category.findFirst({
         where: {
-            name: params.category
+            name: {
+                equals: originalName.toLowerCase(),
+                mode: 'insensitive'
+            }
         },
         include: {
             products: {
@@ -18,13 +26,13 @@ export default async function CategoriesPage({ params }: { params: { category: s
         }
     });
 
-    if (!category) {
+    if (!data) {
         return notFound()
     }
 
     return (
         <>
-            <ProductSection products={category.products} />
+            <ProductSection products={data.products} />
         </>
     );
 }

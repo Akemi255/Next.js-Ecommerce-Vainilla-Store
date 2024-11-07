@@ -8,7 +8,7 @@ export default function AboutUsDropdown() {
         <Popover>
             <PopoverTrigger asChild className='border-none'>
                 <Button variant="outline" className="flex items-center text-gray-500 hover:text-gray-900">
-                    About us
+                    Sobre nosotros
                     <ChevronDown className="ml-1 h-4 w-4 relative top-[0.5px]" />
                 </Button>
             </PopoverTrigger>

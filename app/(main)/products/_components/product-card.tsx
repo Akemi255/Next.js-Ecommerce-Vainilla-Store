@@ -100,7 +100,6 @@ export default function ProductCard({
                     ></button>
                 ))}
             </div>
-            <Badge className="w-1/4 flex justify-center relative top-2">{category}</Badge>
             <h2 className="text-lg font-semibold mt-4">{name}</h2>
 
             <p className="text-gray-600 mt-2">${price.toFixed(2)} USD</p>

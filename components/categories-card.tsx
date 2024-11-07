@@ -13,7 +13,7 @@ export default async function CategoriesSection() {
                 {categories.map((categorie, index) => (
                     <Link
                         key={index}
-                        href={`/products/${categorie.name}`}
+                        href={`/products/${categorie.name.toLowerCase().replace(/\s+/g, '-')}`}
                         className="group relative overflow-hidden rounded-lg aspect-square"
                     >
                         <Image

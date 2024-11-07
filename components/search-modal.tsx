@@ -60,9 +60,9 @@ export default function SearchModal() {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-md">
                         <DialogHeader>
-                            <DialogTitle>Search for a Product</DialogTitle>
+                            <DialogTitle>Busca un producto</DialogTitle>
                             <DialogDescription>
-                                Enter the product name or description to search.
+                                Introduce el nombre del producto a buscar
                             </DialogDescription>
                         </DialogHeader>
                         <Form {...form}>
@@ -72,11 +72,10 @@ export default function SearchModal() {
                                     name="query"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Search</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     id="search"
-                                                    placeholder="Type product name..."
+                                                    placeholder="Escriba aquí el nombre del producto..."
                                                     {...field}
                                                     disabled={form.formState.isSubmitting}
                                                 />

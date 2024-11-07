@@ -43,12 +43,12 @@ export function MobileMenu({ categories, learningCategories }: MobileMenuProps) 
                     <ul className="space-y-4">
                         <li>
                             <div className="flex justify-between items-center" onClick={() => handleMenuClick('shop')}>
-                                <span>Retail Shop</span>
+                                <span>Tienda</span>
                                 {activeMenu === 'shop' ? <ChevronDown /> : <ChevronRight />}
                             </div>
                             {activeMenu === 'shop' && (
                                 <ul className="ml-4 mt-2 space-y-2">
-                                    <li><Link href="/products">All products</Link></li>
+                                    <li><Link href="/products">Ver productos</Link></li>
                                     {categories.map((category) => (
                                         <Link
                                             key={category.id}
@@ -63,7 +63,7 @@ export function MobileMenu({ categories, learningCategories }: MobileMenuProps) 
                         </li>
                         <li>
                             <div className="flex justify-between items-center" onClick={() => handleMenuClick('resources')}>
-                                <span>Learning Resources</span>
+                                <span>Historias ancestrales</span>
                                 {activeMenu === 'resources' ? <ChevronDown /> : <ChevronRight />}
                             </div>
                             {activeMenu === 'resources' && (
@@ -82,7 +82,7 @@ export function MobileMenu({ categories, learningCategories }: MobileMenuProps) 
                         </li>
                         <li>
                             <div className="flex justify-between items-center" onClick={() => handleMenuClick('about')}>
-                                <span>About Us</span>
+                                <span>Sobre nosotros</span>
                                 {activeMenu === 'about' ? <ChevronDown /> : <ChevronRight />}
                             </div>
                             {activeMenu === 'about' && (

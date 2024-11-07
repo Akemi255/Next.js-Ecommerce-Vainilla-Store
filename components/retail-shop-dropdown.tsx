@@ -14,22 +14,22 @@ export default function RetailShopDropdown({ categories }: RetailShopDropdownPro
         <Popover>
             <PopoverTrigger asChild className='border-none'>
                 <Button variant="outline" className="flex items-center text-gray-500 hover:text-gray-900">
-                    Retail Shop
+                    Tienda
                     <ChevronDown className="ml-1 h-4 w-4 relative top-[0.5px]" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-48">
                 <div className="grid gap-2">
                     <Link href="/" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Home
+                        Inicio
                     </Link>
                     <Link href="/products" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        All products
+                        Ver productos
                     </Link>
                     {categories.map((category) => (
                         <Link
                             key={category.id}
-                            href={`/products/${category.name.replace(/\s+/g, '-')}`}
+                            href={`/products/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
                             className="hover:bg-gray-100 p-2 rounded cursor-pointer block"
                         >
                             {category.name}

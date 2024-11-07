@@ -23,7 +23,6 @@ export default async function ProductPage({ params }: { params: { name: string }
     if (!product) {
         return notFound()
     }
-    console.log(product);
 
     return (
         <ProductSection product={product} />
