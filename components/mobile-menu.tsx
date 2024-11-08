@@ -13,13 +13,14 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import Logo from "./logo";
-import { Category, LearningCategory } from "@prisma/client";
+import { Category, LearningCategory, Logo as TypeLogo } from "@prisma/client";
 interface MobileMenuProps {
     categories: Category[];
-    learningCategories: LearningCategory[]
+    learningCategories: LearningCategory[];
+    logo?: TypeLogo
 }
 
-export function MobileMenu({ categories, learningCategories }: MobileMenuProps) {
+export function MobileMenu({ categories, learningCategories, logo }: MobileMenuProps) {
     const [activeMenu, setActiveMenu] = useState(null);
 
     const handleMenuClick = (menu: any) => {
@@ -36,7 +37,7 @@ export function MobileMenu({ categories, learningCategories }: MobileMenuProps) 
             <SheetContent side="left" className="flex flex-col h-full">
                 <SheetHeader>
                     <SheetTitle className="flex justify-center">
-                        <Logo />
+                        <Logo logo={logo} />
                     </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-4 flex-grow">
@@ -87,9 +88,9 @@ export function MobileMenu({ categories, learningCategories }: MobileMenuProps) 
                             </div>
                             {activeMenu === 'about' && (
                                 <ul className="ml-4 mt-2 space-y-2">
-                                    <li><Link href="/about-us">About-us</Link></li>
-                                    <li><Link href="/our-story">Our Story</Link></li>
-                                    <li><Link href="/contact-us">Contact</Link></li>
+                                    <li><Link href="/about-us">Sobre nosotros</Link></li>
+                                    <li><Link href="/our-story">Nuestra historia</Link></li>
+                                    <li><Link href="/contact-us">Contáctanos</Link></li>
                                 </ul>
                             )}
                         </li>

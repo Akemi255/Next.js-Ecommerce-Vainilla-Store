@@ -6,8 +6,8 @@ import { convertSlugToName } from '@/lib/convert-to-slug';
 export default async function CategoriesPage({ params }: { params: { category: string } }) {
 
     const { category } = params;
-
-    const originalName = convertSlugToName(category);
+    const decodedString = decodeURIComponent(category.replace(/-/g, ' '));
+    const originalName = convertSlugToName(decodedString);
 
     const data = await prismadb.category.findFirst({
         where: {

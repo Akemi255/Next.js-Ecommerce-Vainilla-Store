@@ -16,7 +16,6 @@ export default async function ProductsPage() {
 
     return (
         <>
-            <CategoriesSection />
             <ProductSection
                 products={products}
             />

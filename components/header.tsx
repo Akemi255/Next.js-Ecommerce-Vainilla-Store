@@ -30,7 +30,7 @@ export default async function Header() {
         <header className="border-b border-gray-200">
             <div className="container mx-auto px-0 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    <MobileMenu categories={categories} learningCategories={learningCategories} />
+                    <MobileMenu categories={categories} learningCategories={learningCategories} logo={logo} />
                     <Logo logo={logo} />
                     <nav className="hidden md:flex space-x-3">
                         <div className="relative group">

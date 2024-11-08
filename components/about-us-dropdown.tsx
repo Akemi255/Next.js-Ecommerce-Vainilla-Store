@@ -15,13 +15,13 @@ export default function AboutUsDropdown() {
             <PopoverContent className="w-48">
                 <div className="grid gap-2">
                     <Link href="/about-us" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        About us
+                        Sobre nosotros
                     </Link>
                     <Link href="/our-story" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Our story
+                        Nuestra historia
                     </Link>
                     <Link href="/contact-us" className="hover:bg-gray-100 p-2 rounded cursor-pointer block">
-                        Contact us
+                        Contáctanos
                     </Link>
                 </div>
             </PopoverContent>

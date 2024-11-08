@@ -8,7 +8,8 @@ import ProductSection from "./components/product.-section";
 export default async function ProductPage({ params }: { params: { name: string } }) {
 
     const { name } = params
-    const productName = convertSlugToName(name);
+    const decodedString = decodeURIComponent(name.replace(/-/g, ' '));
+    const productName = convertSlugToName(decodedString);
 
     const product = await prismadb.product.findFirst({
         where: {

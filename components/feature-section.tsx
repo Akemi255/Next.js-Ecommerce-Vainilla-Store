@@ -18,7 +18,7 @@ export default function FeatureSection({ products }: ProductSectionProps) {
                 <p className="text-center text-black">No products available</p>
             ) : (
                 <> <h1 className="text-center text-4xl font-bold text-gray-800 my-8">
-                    Featured Products
+                    Productos Destacados
                 </h1>
                     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {products.map((product) => (
