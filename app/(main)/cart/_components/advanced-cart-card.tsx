@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -8,22 +7,16 @@ import useCart from '@/hooks/store';
 interface CartCardProps {
     id: string;
     name: string;
-    description: string;
     images: { url: string }[];
     price: number;
-    stock: number;
-    category: string;
     quantity: number;
 }
 
 const CartCard: React.FC<CartCardProps> = ({
     id,
     name,
-    description,
     images,
     price,
-    stock,
-    category,
     quantity
 }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);

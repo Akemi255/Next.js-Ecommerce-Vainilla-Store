@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import CartSection from "./components/cart-section";
+import CartSection from "./_components/cart-section";
 import { auth } from "@/auth";
 import prismadb from "@/lib/prismadb";
 

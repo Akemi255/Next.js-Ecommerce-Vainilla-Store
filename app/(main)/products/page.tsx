@@ -14,10 +14,25 @@ export default async function ProductsPage() {
         },
     });
 
+    const advancedProducts = await prismadb.advancedProduct.findMany({
+        orderBy: {
+            createdAt: "desc",
+        },
+        include: {
+            category: true,
+            variants: {
+                include: {
+                    images: true
+                }
+            }
+        }
+    });
+
     return (
         <>
             <ProductSection
                 products={products}
+                advancedProducts={advancedProducts}
             />
         </>
     );

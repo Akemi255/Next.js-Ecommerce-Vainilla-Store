@@ -4,35 +4,10 @@ import useSWR from 'swr';
 import axios from 'axios';
 
 import CartCard from './cart-card';
-import { getProducts } from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import useCart from '@/hooks/store';
-
-import { Product } from '@prisma/client';
-import { Category, Image } from '@prisma/client';
-interface ProductWithDetails extends Product {
-    images: Image[];
-    category: Category;
-}
-
-interface CartItem {
-    id: string;
-    quantity: number;
-}
-
-
-const fetchProducts = async (ids: string[]) => {
-    if (ids.length === 0) {
-        return [];
-    }
-
-    try {
-        const response = await getProducts(ids);
-        return response;
-    } catch (error) {
-        throw new Error('Failed to fetch products');
-    }
-};
+import { fetchAllProducts } from '../_helpers/get-data';
+import { CartItem, ProductWithDetails, VariantProductWithImages } from '../interfaces/interfaces';
 
 export default function CartSection() {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -55,7 +30,7 @@ export default function CartSection() {
 
     const { data: products, error } = useSWR(
         productIds.length > 0 ? productIds : null,
-        fetchProducts
+        fetchAllProducts
     );
 
     if (productIds.length > 0 && !products && !error) {
@@ -65,24 +40,21 @@ export default function CartSection() {
                     className="inline-block h-24 w-24 animate-spin rounded-full border-4 border-solid border-current border-e-transparent text-surface dark:text-white"
                     role="status"
                 >
-                    <span
-                        className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 clip-[rect(0,0,0,0)]"
+                    <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 clip-[rect(0,0,0,0)]"
                     >Loading...</span>
                 </div>
             </div>
         );
     }
 
-    // Handle errors
     if (error) {
         return <div className='flex justify-center items-center mt-9'>Error loading products.</div>;
     }
 
-    // Ensure products is an array
-    const productList: ProductWithDetails[] = products || [];
+    const productList: ProductWithDetails[] = products?.products || [];
+    const advancedProductList: VariantProductWithImages[] = products?.advancedProducts || [];
 
-    // Calculate total price
-    const totalPrice = productList.reduce((total, product) => {
+    const totalPrice = [...productList, ...advancedProductList].reduce((total, product) => {
         const cartItem = cartItems.find(item => item.id === product.id);
         if (cartItem) {
             total += product.price * cartItem.quantity;
@@ -93,13 +65,10 @@ export default function CartSection() {
     const onCheckout = async () => {
         try {
             const response = await axios.post(`/api/checkout`, {
-                products: productList.map((product) => {
-                    const cartItem = cartItems.find(item => item.id === product.id);
-                    return {
-                        id: product.id,
-                        quantity: cartItem ? cartItem.quantity : 0,
-                    };
-                }),
+                products: cartItems.map((item) => ({
+                    id: item.id,
+                    quantity: item.quantity,
+                })),
             });
             window.location = response.data.url;
         } catch (error) {
@@ -107,22 +76,22 @@ export default function CartSection() {
         }
     };
 
-
-
     const handleCleanCart = () => {
         setCartItems([]);
         removeAll();
         localStorage.removeItem('cart-storage');
     };
 
+    const isEmptyCart = productIds.length === 0 || (productList.length === 0 && advancedProductList.length === 0);
+
     return (
         <div className='px-4 sm:px-6 lg:px-8'>
-            {productIds.length === 0 || (productList.length === 0 && !error) ? (
+            {isEmptyCart ? (
                 <p className="text-2xl font-bold mb-4 text-center mt-7">Your cart is empty.</p>
             ) : (
                 <>
                     <div className="px-4 py-6 bg-gray-100 mt-6 border-t border-gray-200">
-                        <div className="flex  mb-4">
+                        <div className="flex mb-4">
                             <span className="font-semibold text-lg">Total:</span>
                             <span className="font-semibold text-lg">${totalPrice.toFixed(2)}</span>
                         </div>
@@ -133,7 +102,7 @@ export default function CartSection() {
                     </div>
                     <h1 className="text-2xl font-bold mb-4 text-center mt-7">Your cart</h1>
                     <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                        {productList.map((product: ProductWithDetails) => {
+                        {[...productList, ...advancedProductList].map((product) => {
                             const cartItem = cartItems.find(item => item.id === product.id);
                             const quantity = cartItem ? cartItem.quantity : 0;
 
@@ -141,18 +110,15 @@ export default function CartSection() {
                                 <CartCard
                                     key={product.id}
                                     id={product.id}
+                                    variantName={product.advancedProduct?.name}
                                     name={product.name}
-                                    description={product.description}
                                     images={product.images}
                                     price={product.price}
-                                    stock={product.stock}
-                                    category={product.category.name}
                                     quantity={quantity}
                                 />
                             );
                         })}
                     </div>
-
                 </>
             )}
         </div>

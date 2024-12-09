@@ -1,17 +1,24 @@
 "use client"
-import { Category, Image, Product } from '@prisma/client';
+import { AdvancedProduct, AdvancedProductImage, Category, Image, Product, ProductVariant } from '@prisma/client';
 import ProductCard from '@/app/(main)/products/_components/product-card';
+import AdvancedProductCard from './advanced-product-card';
 
 interface ProductSectionProps {
     products: ProductWithImages[];
+    advancedProducts: AdvancedProductWithImages[];
 }
 
 interface ProductWithImages extends Product {
     images: Image[];
-    category: Category
+    category: Category;
 }
 
-export default function FeatureSection({ products }: ProductSectionProps) {
+interface AdvancedProductWithImages extends AdvancedProduct {
+    variants: (ProductVariant & { images: AdvancedProductImage[] })[];
+    category: Category;
+}
+
+export default function FeatureSection({ products, advancedProducts }: ProductSectionProps) {
     return (
         <div className="p-4">
             {products.length === 0 ? (
@@ -21,6 +28,19 @@ export default function FeatureSection({ products }: ProductSectionProps) {
                     Productos Destacados
                 </h1>
                     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        {advancedProducts.map((product) => {
+                            return (
+                                <AdvancedProductCard
+                                    key={product.id}
+                                    id={product.id}
+                                    name={product.name}
+                                    description={product.description}
+                                    variants={product.variants}
+                                    category={product.category.name}
+
+                                />
+                            );
+                        })}
                         {products.map((product) => (
                             <ProductCard
                                 key={product.id}
@@ -33,6 +53,7 @@ export default function FeatureSection({ products }: ProductSectionProps) {
                                 category={product.category.name}
                             />
                         ))}
+
                     </div>
                 </>
             )}

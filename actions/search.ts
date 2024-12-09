@@ -1,4 +1,5 @@
 "use server";
+
 import prismadb from "@/lib/prismadb";
 import { z } from "zod";
 
@@ -31,5 +32,25 @@ export const searchProducts = async (query: string) => {
     },
   });
 
-  return products;
+  const advancedProducts = await prismadb.advancedProduct.findMany({
+    where: {
+      OR: [
+        { name: { contains: validQuery, mode: "insensitive" } },
+        { description: { contains: validQuery, mode: "insensitive" } },
+      ],
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      category: true,
+      variants: {
+        include: {
+          images: true,
+        },
+      },
+    },
+  });
+
+  return { products, advancedProducts };
 };

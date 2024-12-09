@@ -21,11 +21,31 @@ export default async function Home() {
     },
   });
 
+  const advancedproducts = await prismadb.advancedProduct.findMany({
+    where: {
+      isFeature: true
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      category: true,
+      variants: {
+        include: {
+          images: true
+        }
+      }
+    }
+  });
+
   return (
     <main className="">
       <AspectRatioVainilla />
       <CategoriesSection />
-      <FeatureSection products={products} />
+      <FeatureSection
+        products={products}
+        advancedProducts={advancedproducts}
+      />
     </main>
   );
 }

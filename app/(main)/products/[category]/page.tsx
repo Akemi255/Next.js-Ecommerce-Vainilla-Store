@@ -22,6 +22,16 @@ export default async function CategoriesPage({ params }: { params: { category: s
                     category: true,
                     images: true
                 }
+            },
+            AdvancedProduct: {
+                include: {
+                    category: true,
+                    variants: {
+                        include: {
+                            images: true
+                        }
+                    }
+                }
             }
         }
     });
@@ -32,7 +42,7 @@ export default async function CategoriesPage({ params }: { params: { category: s
 
     return (
         <>
-            <ProductSection products={data.products} />
+            <ProductSection products={data.products} advancedProducts={data.AdvancedProduct} />
         </>
     );
 }
