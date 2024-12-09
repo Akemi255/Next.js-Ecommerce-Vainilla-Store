@@ -40,9 +40,11 @@ export default async function CategoriesPage({ params }: { params: { category: s
         return notFound()
     }
 
+    const filteredAdvancedProducts = data.AdvancedProduct.filter(product => product.variants.length > 0);
+
     return (
         <>
-            <ProductSection products={data.products} advancedProducts={data.AdvancedProduct} />
+            <ProductSection products={data.products} advancedProducts={filteredAdvancedProducts} />
         </>
     );
 }

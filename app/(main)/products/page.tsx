@@ -28,11 +28,13 @@ export default async function ProductsPage() {
         }
     });
 
+    const filteredAdvancedProducts = advancedProducts.filter(product => product.variants.length > 0);
+
     return (
         <>
             <ProductSection
                 products={products}
-                advancedProducts={advancedProducts}
+                advancedProducts={filteredAdvancedProducts}
             />
         </>
     );

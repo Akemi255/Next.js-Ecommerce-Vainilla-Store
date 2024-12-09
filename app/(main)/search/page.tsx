@@ -1,5 +1,10 @@
 import { searchProducts } from "@/actions/search";
 import ProductSection from "../products/_components/product-section";
+import { AdvancedProduct, ProductVariant } from "@prisma/client";
+
+interface AdvancedProductExtended extends AdvancedProduct {
+    variants: ProductVariant[];
+}
 
 export default async function SearchPage({ searchParams }: { searchParams: { q: string } }) {
 
@@ -15,11 +20,13 @@ export default async function SearchPage({ searchParams }: { searchParams: { q: 
         return <h2 className="flex justify-center mt-4 mb-4">No search results</h2>;
     }
 
+    const filteredAdvancedProducts = data.advancedProducts.filter((product: AdvancedProductExtended) => product.variants.length > 0);
+
     return (
         <div>
             <ProductSection
                 products={data.products}
-                advancedProducts={data.advancedProducts}
+                advancedProducts={filteredAdvancedProducts}
             />
         </div>
     );

@@ -153,7 +153,7 @@ export default function AdvancedProductCard({
             <p className="text-gray-600 mt-2">Stock restante: {currentStock} unidades</p>
             <Button
                 className="w-full mt-4"
-                onClick={() => router.push(`/product/${name.toLowerCase().replace(/\s+/g, "-")}`)}
+                onClick={() => router.push(`/advanced-product/${name.toLowerCase().replace(/\s+/g, "-")}`)}
             >
                 Conocer más
             </Button>
