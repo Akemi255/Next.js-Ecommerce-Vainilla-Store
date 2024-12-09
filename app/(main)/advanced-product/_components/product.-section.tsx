@@ -6,6 +6,7 @@ import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import useCartStore from "@/hooks/store";
+import { AdvancedProductImage, ProductVariant } from "@prisma/client";
 
 interface AdvancedProductSectionProps {
     product: any;
@@ -63,7 +64,7 @@ export default function AdvancedProductSection({ product }: AdvancedProductSecti
                             />
                         </div>
                         <div className="flex gap-2 overflow-auto pb-2">
-                            {selectedVariant.images.map((image, index) => (
+                            {selectedVariant.images.map((image: AdvancedProductImage, index: number) => (
                                 <button
                                     key={image.id}
                                     onClick={() => setSelectedImage(index)}
@@ -123,7 +124,7 @@ export default function AdvancedProductSection({ product }: AdvancedProductSecti
                         <p className="text-sm mt-2">Stock restante: {currentStock} unidades</p>
                     </div>
                     <div className="flex gap-2 mt-4">
-                        {product.variants.map((variant, index) => (
+                        {product.variants.map((variant: ProductVariant, index: number) => (
                             <Button
                                 key={variant.id}
                                 variant={selectedVariantIndex === index ? "default" : "outline"}
